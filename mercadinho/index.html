@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mercado Boa Compra</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; margin: 0; background: #f4f6f8; color: #222; }
+    header { background: #1b7f3b; color: #fff; padding: 12px 20px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; }
+    header h1 { margin: 0; font-size: 1.4rem; }
+    nav a { color: #fff; text-decoration: none; margin-right: 15px; font-weight: bold; }
+    nav a:hover { text-decoration: underline; }
+    main { max-width: 1000px; margin: 20px auto; background: #fff; padding: 20px; border-radius: 8px; }
+    footer { text-align: center; color: #666; padding: 15px; font-size: .85rem; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { padding: 8px; border-bottom: 1px solid #ddd; text-align: left; }
+    th { background: #e8f3ea; }
+    .tabela-wrap { overflow-x: auto; }
+    tr.alerta { background: #fff3cd; }
+    .btn { display: inline-block; padding: 7px 12px; background: #1b7f3b; color: #fff; border: 0; border-radius: 4px; text-decoration: none; cursor: pointer; font-size: .9rem; }
+    .btn.sec { background: #666; }
+    .btn.perigo { background: #c0392b; }
+    .btn.peq { padding: 4px 8px; font-size: .8rem; }
+    label { display: block; margin-top: 12px; font-weight: bold; }
+    input, select, textarea { width: 100%; padding: 8px; margin-top: 4px; border: 1px solid #aaa; border-radius: 4px; font-size: 1rem; }
+    .msg { padding: 10px 14px; border-radius: 4px; margin: 10px 0; }
+    .msg.sucesso { background: #d4edda; color: #155724; }
+    .msg.erro { background: #f8d7da; color: #721c24; }
+    .msg.aviso { background: #fff3cd; color: #856404; }
+    .msg.erro ul { margin: 0; padding-left: 18px; }
+    .filtros { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; }
+    .filtros > div { flex: 1; min-width: 180px; }
+    .atalhos { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 15px; }
+    .card { flex: 1; min-width: 200px; padding: 25px; background: #e8f3ea; border-radius: 8px; text-align: center; text-decoration: none; color: #1b7f3b; font-weight: bold; font-size: 1.1rem; }
+    .card:hover { background: #d3ebd8; }
+    .tag { padding: 2px 6px; border-radius: 3px; font-size: .75rem; color: #fff; }
+    .tag.baixo { background: #e67e22; }
+    .tag.vencido { background: #c0392b; }
+    .acoes { white-space: nowrap; }
+    .tela-titulo { max-width: 1000px; margin: 30px auto 0; padding: 0 20px; color: #666; font-size: .9rem; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🛒 Mercado Boa Compra</h1>
+  <nav>
+    <a href="#inicio">Início</a>
+    <a href="#produtos">Produtos</a>
+    <a href="#categorias">Categorias</a>
+    <a href="#form">Novo produto</a>
+  </nav>
+</header>
+
+<p class="tela-titulo">Tela 1: Página inicial</p>
+<main id="inicio">
+  <h2>Bem-vindo ao Mercado Boa Compra</h2>
+  <p>Painel do administrador. Escolha uma opção:</p>
+  <div class="atalhos">
+    <a class="card" href="#produtos">📦 Produtos</a>
+    <a class="card" href="#categorias">🏷️ Categorias</a>
+    <a class="card" href="#form">➕ Novo produto</a>
+    <a class="card" href="#categorias">➕ Nova categoria</a>
+  </div>
+</main>
+
+<p class="tela-titulo">Tela 2: Lista de produtos (busca, filtro e alerta de estoque)</p>
+<main id="produtos">
+  <div class="msg sucesso">Produto cadastrado com sucesso!</div>
+  <h2>Produtos</h2>
+  <p><a class="btn" href="#form">+ Novo produto</a></p>
+
+  <form class="filtros">
+    <div>
+      <label for="busca">Buscar por nome ou código</label>
+      <input type="text" id="busca" placeholder="Ex: arroz ou 0012345">
+    </div>
+    <div>
+      <label for="cat">Categoria</label>
+      <select id="cat">
+        <option>Todas</option>
+        <option>Mercearia</option>
+        <option>Bebidas</option>
+        <option>Laticínios</option>
+        <option>Limpeza</option>
+        <option>Hortifruti</option>
+      </select>
+    </div>
+    <div>
+      <button class="btn" type="button">Filtrar</button>
+      <a class="btn sec" href="#produtos">Limpar filtros</a>
+    </div>
+  </form>
+
+  <p><small>Linhas amarelas: estoque menor ou igual ao estoque mínimo.</small></p>
+  <div class="tabela-wrap">
+    <table>
+      <tr><th>Código</th><th>Nome</th><th>Categoria</th><th>Preço</th><th>Estoque</th><th>Ações</th></tr>
+      <tr>
+        <td>0012345</td><td>Arroz 5kg</td><td>Mercearia</td><td>R$ 24,90</td><td>40</td>
+        <td class="acoes"><a class="btn peq" href="#produtos">Detalhes</a> <a class="btn peq sec" href="#form">Editar</a> <a class="btn peq perigo" href="#excluir">Excluir</a></td>
+      </tr>
+      <tr>
+        <td>7891000</td><td>Feijão Preto 1kg</td><td>Mercearia</td><td>R$ 8,50</td><td>25</td>
+        <td class="acoes"><a class="btn peq" href="#produtos">Detalhes</a> <a class="btn peq sec" href="#form">Editar</a> <a class="btn peq perigo" href="#excluir">Excluir</a></td>
+      </tr>
+      <tr class="alerta">
+        <td>7891001</td><td>Macarrão Espaguete</td><td>Mercearia</td><td>R$ 4,20</td><td>5 <span class="tag baixo">Baixo</span></td>
+        <td class="acoes"><a class="btn peq" href="#produtos">Detalhes</a> <a class="btn peq sec" href="#form">Editar</a> <a class="btn peq perigo" href="#excluir">Excluir</a></td>
+      </tr>
+      <tr class="alerta">
+        <td>7892000</td><td>Suco de Laranja 1L</td><td>Bebidas</td><td>R$ 9,99</td><td>0 <span class="tag baixo">Baixo</span></td>
+        <td class="acoes"><a class="btn peq" href="#produtos">Detalhes</a> <a class="btn peq sec" href="#form">Editar</a> <a class="btn peq perigo" href="#excluir">Excluir</a></td>
+      </tr>
+      <tr>
+        <td>7893000</td><td>Leite Integral 1L</td><td>Laticínios</td><td>R$ 5,49</td><td>60</td>
+        <td class="acoes"><a class="btn peq" href="#produtos">Detalhes</a> <a class="btn peq sec" href="#form">Editar</a> <a class="btn peq perigo" href="#excluir">Excluir</a></td>
+      </tr>
+      <tr>
+        <td>7893001</td><td>Queijo Mussarela 500g <span class="tag vencido">Vencido</span></td><td>Laticínios</td><td>R$ 22,00</td><td>12</td>
+        <td class="acoes"><a class="btn peq" href="#produtos">Detalhes</a> <a class="btn peq sec" href="#form">Editar</a> <a class="btn peq perigo" href="#excluir">Excluir</a></td>
+      </tr>
+      <tr>
+        <td>7894000</td><td>Detergente 500ml</td><td>Limpeza</td><td>R$ 2,99</td><td>45</td>
+        <td class="acoes"><a class="btn peq" href="#produtos">Detalhes</a> <a class="btn peq sec" href="#form">Editar</a> <a class="btn peq perigo" href="#excluir">Excluir</a></td>
+      </tr>
+    </table>
+  </div>
+</main>
+
+<p class="tela-titulo">Tela 3: Categorias</p>
+<main id="categorias">
+  <h2>Categorias</h2>
+  <p><a class="btn" href="#categorias">+ Nova categoria</a></p>
+  <div class="tabela-wrap">
+    <table>
+      <tr><th>Nome</th><th>Descrição</th><th>Produtos</th><th>Ações</th></tr>
+      <tr><td>Mercearia</td><td>Arroz, feijão, massas e enlatados</td><td>3</td>
+        <td class="acoes"><a class="btn peq" href="#produtos">Ver produtos</a> <a class="btn peq sec" href="#categorias">Editar</a> <a class="btn peq perigo" href="#bloqueio">Excluir</a></td></tr>
+      <tr><td>Bebidas</td><td>Sucos, refrigerantes e água</td><td>2</td>
+        <td class="acoes"><a class="btn peq" href="#produtos">Ver produtos</a> <a class="btn peq sec" href="#categorias">Editar</a> <a class="btn peq perigo" href="#bloqueio">Excluir</a></td></tr>
+      <tr><td>Laticínios</td><td>Leite, queijo e iogurte</td><td>2</td>
+        <td class="acoes"><a class="btn peq" href="#produtos">Ver produtos</a> <a class="btn peq sec" href="#categorias">Editar</a> <a class="btn peq perigo" href="#bloqueio">Excluir</a></td></tr>
+      <tr><td>Limpeza</td><td>Produtos de limpeza da casa</td><td>2</td>
+        <td class="acoes"><a class="btn peq" href="#produtos">Ver produtos</a> <a class="btn peq sec" href="#categorias">Editar</a> <a class="btn peq perigo" href="#bloqueio">Excluir</a></td></tr>
+    </table>
+  </div>
+</main>
+
+<p class="tela-titulo">Tela 4: Formulário de produto (com mensagens de validação)</p>
+<main id="form">
+  <h2>Novo produto</h2>
+  <div class="msg erro">
+    <ul>
+      <li>O nome é obrigatório.</li>
+      <li>O preço deve ser um número maior que zero.</li>
+      <li>Já existe um produto com esse código.</li>
+    </ul>
+  </div>
+  <form>
+    <label for="codigo">Código *</label>
+    <input type="text" id="codigo" required value="0012345">
+
+    <label for="nome">Nome *</label>
+    <input type="text" id="nome" required>
+
+    <label for="categoria">Categoria *</label>
+    <select id="categoria" required>
+      <option value="">Selecione...</option>
+      <option>Mercearia</option>
+      <option>Bebidas</option>
+      <option>Laticínios</option>
+      <option>Limpeza</option>
+      <option>Hortifruti</option>
+    </select>
+
+    <label for="descricao">Descrição</label>
+    <textarea id="descricao" rows="3"></textarea>
+
+    <label for="preco">Preço (R$) *</label>
+    <input type="text" id="preco" required placeholder="Ex: 5,90" value="-5">
+
+    <label for="estoque">Estoque *</label>
+    <input type="number" id="estoque" min="0" step="1" required value="0">
+
+    <label for="minimo">Estoque mínimo *</label>
+    <input type="number" id="minimo" min="0" step="1" required value="0">
+
+    <label for="validade">Validade</label>
+    <input type="date" id="validade">
+
+    <p>
+      <button class="btn" type="button">Salvar</button>
+      <a class="btn sec" href="#produtos">Cancelar</a>
+    </p>
+  </form>
+</main>
+
+<p class="tela-titulo">Tela 5: Confirmação de exclusão</p>
+<main id="excluir">
+  <h2>Excluir produto</h2>
+  <div class="msg aviso">Tem certeza que deseja excluir o produto <strong>Macarrão Espaguete</strong> (código 7891001)?</div>
+  <button class="btn perigo" type="button">Sim, excluir</button>
+  <a class="btn sec" href="#produtos">Cancelar</a>
+</main>
+
+<p class="tela-titulo">Tela 6: Exclusão de categoria bloqueada</p>
+<main id="bloqueio">
+  <h2>Excluir categoria</h2>
+  <div class="msg erro">A categoria <strong>Mercearia</strong> possui 3 produto(s) vinculado(s) e não pode ser excluída.</div>
+  <a class="btn sec" href="#categorias">Voltar</a>
+</main>
+
+<footer>Mercado Boa Compra - Sistema administrativo</footer>
+</body>
+</html>
